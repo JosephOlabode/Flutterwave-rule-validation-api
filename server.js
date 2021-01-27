@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const http = require('http');
 const cors = require("cors");
 
+const error = require('./middleware/error');
+
 const app = express();
 const PORT = process.env.PORT || 3000; // Defining your port number.
 
@@ -27,6 +29,9 @@ app.use('/',  (req, res, next) =>{
     res.send("Hello from Flutterwave server");
 });
 
+
+// this is a central place for handling errors
+app.use(error);
 
 server.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
