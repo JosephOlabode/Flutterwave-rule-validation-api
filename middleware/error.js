@@ -27,6 +27,7 @@ module.exports = (err, req, res, next) => {
         }));
     }
 
+
     logger.error(err); // this logs the error to both file
 
     return res.status(500).send({message: 'Something went wrong'});
