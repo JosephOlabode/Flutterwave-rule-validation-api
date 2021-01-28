@@ -15,4 +15,15 @@ router.get('/', (req, res, next) => {
     })
 });
 
+router.post('/validate-rule', (req, res, next) => {
+    const data = req.body;
+    //check if the rule field is present
+    if(data.rule == null) {
+
+    }
+    return res.status(200).send({
+        message: "It is working oo thank God",
+    })
+})
+
 module.exports = router;
