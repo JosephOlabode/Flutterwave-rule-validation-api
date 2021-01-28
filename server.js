@@ -4,6 +4,7 @@ const http = require('http');
 const cors = require("cors");
 
 const error = require('./middleware/error');
+const rule = require('./routes/rule-validation');
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Defining your port number.
@@ -25,9 +26,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //this shows if the server is up and running
-app.use('/',  (req, res, next) =>{
+app.use('/', rule);
+/*app.use('/',  (req, res, next) =>{
     res.send("Hello from Flutterwave server");
-});
+});*/
 
 
 // this is a central place for handling errors
