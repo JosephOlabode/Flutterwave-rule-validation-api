@@ -1,33 +1,7 @@
 {
-  expose: true,
-  statusCode: 400,
-  status: 400,
-  body: '{\n' +
-    '  "rule": {\n' +
-    '    "field": "missions",\n' +
-    '    "condition": "gte",\n' +
-    '    "condition_value": 30\n' +
-    '  },\n' +
-    '  "data": {\n' +
-    '    "name": "James Holden",\n' +
-    '    "crew": "Rocinante",\n' +
-    '    "age": 34,\n' +
-    '    "position": "Captain",\n' +
-    '    "missions": 45\n' +
-    '  },\n' +
-    '  date\n' +
-    '}',
-  type: 'entity.parse.failed',
   level: 'error',
-  message: 'Unexpected token d in JSON at position 227',
-  stack: 'SyntaxError: Unexpected token d in JSON at position 227\n' +
-    '    at JSON.parse (<anonymous>)\n' +
-    '    at parse (/home/bowen/Desktop/Projects/Personal/rule-validation-api/node_modules/body-parser/lib/types/json.js:89:19)\n' +
-    '    at /home/bowen/Desktop/Projects/Personal/rule-validation-api/node_modules/body-parser/lib/read.js:121:18\n' +
-    '    at invokeCallback (/home/bowen/Desktop/Projects/Personal/rule-validation-api/node_modules/raw-body/index.js:224:16)\n' +
-    '    at done (/home/bowen/Desktop/Projects/Personal/rule-validation-api/node_modules/raw-body/index.js:213:7)\n' +
-    '    at IncomingMessage.onEnd (/home/bowen/Desktop/Projects/Personal/rule-validation-api/node_modules/raw-body/index.js:273:7)\n' +
-    '    at IncomingMessage.emit (events.js:314:20)\n' +
-    '    at endReadableNT (_stream_readable.js:1241:12)\n' +
-    '    at processTicksAndRejections (internal/process/task_queues.js:84:21)'
+  message: "Cannot read property 'field' of undefined",
+  stack: "TypeError: Cannot read property 'field' of undefined\n" +
+    '    at /home/bowen/Desktop/Projects/Personal/rule-validation-api/routes/rule-validation.js:33:44\n' +
+    '    at processTicksAndRejections (internal/process/task_queues.js:97:5)'
 }

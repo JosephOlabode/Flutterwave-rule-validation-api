@@ -24,9 +24,17 @@ router.post('/validate-rule', async (req, res, next) => {
         // checking if a validation error exist or not
         if(result.error === null || result.error === undefined) {
             return res.status(200).send({
-                message: "field [name of field] successfully validated.",
+                message: `field ${result.value.rule.field} successfully validated.`,
                 status: "success",
-                data: result
+                data: {
+                    validation: {
+                        error: "false",
+                        field: result.value.rule.field,
+                        field_value: result.value.data.missions,
+                        condition: result.value.rule.condition,
+                        condition_value: result.value.rule.condition_value
+                    }
+                }
             })
         } else {
             const error = result.error.details[0].message;
