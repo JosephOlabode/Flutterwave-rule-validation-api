@@ -27,11 +27,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //this shows if the server is up and running
 app.use('/', rule);
-/*app.use('/',  (req, res, next) =>{
-    res.send("Hello from Flutterwave server");
-});*/
 
 
+app.use(function(err, req, res, next) {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        // Handle the error here
+        return res.status(400).send({
+            message: 'Invalid JSON payload passed.',
+            status: 'error',
+            data: null
+        })
+    }
+    // Pass the error to the next middleware if it wasn't a JSON parse error
+    next(err);
+});
 // this is a central place for handling errors
 app.use(error);
 

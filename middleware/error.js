@@ -19,7 +19,6 @@ module.exports = (err, req, res, next) => {
         ]
     });
 
-
     // also consoling out the error if it is not in production
     if(process.env.NODE_ENV !== 'production') {
         logger.add(new winston.transports.Console({
@@ -27,8 +26,11 @@ module.exports = (err, req, res, next) => {
         }));
     }
 
+    logger.error(err); // this logs the error to the flat file
 
-    logger.error(err); // this logs the error to both file
-
-    return res.status(500).send({message: 'Something went wrong'});
+    return res.status(500).send({
+        message: 'Something went wrong!',
+        status: 'error',
+        data: null
+    });
 };
