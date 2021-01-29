@@ -20,8 +20,9 @@ router.post('/validate-rule', async (req, res, next) => {
     const data = req.body;
     try {
         const result = await ruleValidation.validate(data);
+
+        // checking if a validation error exist or not
         if(result.error === null || result.error === undefined) {
-            console.log(result);
             return res.status(200).send({
                 message: "field [name of field] successfully validated.",
                 status: "success",
@@ -36,7 +37,9 @@ router.post('/validate-rule', async (req, res, next) => {
         }
 
     } catch (err) {
-        next(err) // handling the error for proper error logging in the error file in the middleware folder
+        // this log any 500 internal server error into the Error log file for later
+        // consideration by the admin, code located in the middleware folder
+        next(err)
     }
 })
 
