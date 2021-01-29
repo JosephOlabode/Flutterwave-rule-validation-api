@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/', rule);
 
 
+// this checks if the payload is a valid json
 app.use(function(err, req, res, next) {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
         // Handle the error here
@@ -41,6 +42,7 @@ app.use(function(err, req, res, next) {
     // Pass the error to the next middleware if it wasn't a JSON parse error
     next(err);
 });
+
 // this is a central place for handling errors
 app.use(error);
 

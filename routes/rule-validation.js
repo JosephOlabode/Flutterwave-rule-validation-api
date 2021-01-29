@@ -29,8 +29,10 @@ router.post('/validate-rule', async (req, res, next) => {
                 data: result
             })
         } else {
+            const error = result.error.details[0].message;
+            const errorMessage = error.replace(/[&\/\\#,+()$~%'":*?<>{}]/g, '');
             return res.status(400).send({
-                message: result.error.details[0].message,
+                message:  errorMessage + '.',
                 status: "error",
                 data: null
             })
