@@ -19,20 +19,23 @@ router.get('/', (req, res, next) => {
 router.post('/validate-rule', async (req, res, next) => {
     const data = req.body;
     try {
-        const result = await ruleValidation.validate(data);
+        const validatedData = await ruleValidation.validate(data);
 
         // checking if a validation error exist or not
-        if(result.error === null || result.error === undefined) {
+        if(validatedData.error === null || validatedData.error === undefined) {
+
+            const validData = validatedData.value;
+
             return res.status(200).send({
-                message: `field ${result.value.rule.field} successfully validated.`,
+                message: `field ${validData.rule.field} successfully validated.`,
                 status: "success",
                 data: {
                     validation: {
                         error: "false",
-                        field: result.value.rule.field,
-                        field_value: result.value.data.missions,
-                        condition: result.value.rule.condition,
-                        condition_value: result.value.rule.condition_value
+                        field: validData.rule.field,
+                        field_value: validData.data.missions,
+                        condition: validData.rule.condition,
+                        condition_value: validData.rule.condition_value
                     }
                 }
             })
