@@ -1,4 +1,4 @@
-const joi = require('joi');
+const Joi = require('joi');
 /*{
   "rule": {
     "field": "missions",
@@ -13,28 +13,48 @@ const joi = require('joi');
     "missions": 45
   }
 }*/
-const conditionArray = ['eq', 'neq', 'gt', 'gte', 'contains'];
 
-const ruleSchema = joi.object().keys({
-    field: joi.object().required(),
-    condition: joi.array().items(joi.string()).required(),
-    condition_value: joi.number().required()
-});
+// breaking down the input object into smaller chunks for
+// easy validation before combining them together as a whole
 
-const dataSchema = joi.object().keys({
-    name: joi.string().required(),
-    crew: joi.string().required(),
-    age: joi.number().required(),
-    position: joi.string().required(),
-    missions: joi.string().required()
+
+// validating the rule object
+const ruleSchema = Joi.object().keys({
+    field: Joi.object().max(2).required(),
+    condition: Joi.string().valid('eq', 'neq', 'gt', 'gte', 'contains').required(),
+    condition_value: Joi.number().required()
 });
 
 
-const rule_validation = joi.object().keys({
+// validating the data object
+const dataSchema = Joi.alternatives().try(
+    Joi.object({
+        name: Joi.string().required(),
+        crew: Joi.string().required(),
+        age: Joi.number().required(),
+        position: Joi.string().required(),
+        missions: Joi.string().required()
+    }),
+
+    Joi.array().items(
+        Joi.object({
+            name: Joi.string().required(),
+            crew: Joi.string().required(),
+            age: Joi.number().required(),
+            position: Joi.string().required(),
+            missions: Joi.string().required()
+        })
+    ),
+
+    Joi.string()
+);
+
+
+// combining the validations into one single validation rule
+const rule_validation = Joi.object().keys({
     rule: ruleSchema,
     data: dataSchema,
 });
-
 
 
 module.exports = rule_validation;
