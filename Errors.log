@@ -1,0 +1,7 @@
+{
+  level: 'error',
+  message: "Cannot read property 'details' of undefined",
+  stack: "TypeError: Cannot read property 'details' of undefined\n" +
+    '    at /home/bowen/Desktop/Projects/Personal/rule-validation-api/routes/rule-validation.js:26:39\n' +
+    '    at processTicksAndRejections (internal/process/task_queues.js:97:5)'
+}

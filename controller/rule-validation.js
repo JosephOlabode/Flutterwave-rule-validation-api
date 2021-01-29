@@ -20,10 +20,10 @@ const Joi = require('joi');
 
 // validating the rule object
 const ruleSchema = Joi.object().keys({
-    field: Joi.object().max(2).required(),
+    field: Joi.alternatives().try(Joi.object().max(2), Joi.string()).required(),
     condition: Joi.string().valid('eq', 'neq', 'gt', 'gte', 'contains').required(),
     condition_value: Joi.number().required()
-});
+}).required();
 
 
 // validating the data object
@@ -33,7 +33,7 @@ const dataSchema = Joi.alternatives().try(
         crew: Joi.string().required(),
         age: Joi.number().required(),
         position: Joi.string().required(),
-        missions: Joi.string().required()
+        missions: Joi.number().required()
     }),
 
     Joi.array().items(
@@ -42,12 +42,12 @@ const dataSchema = Joi.alternatives().try(
             crew: Joi.string().required(),
             age: Joi.number().required(),
             position: Joi.string().required(),
-            missions: Joi.string().required()
+            missions: Joi.number().required()
         })
     ),
 
     Joi.string()
-);
+).required();
 
 
 // combining the validations into one single validation rule
