@@ -51,7 +51,7 @@ const dataSchema = Joi.alternatives().try(
 
 
 // combining the validations into one single validation rule
-const rule_validation = Joi.object().keys({
+const ruleValidation = Joi.object().keys({
     rule: ruleSchema,
     data: dataSchema,
 });
@@ -96,5 +96,6 @@ function validateFlutterRule(condition, condition_value, field_value) {
 }
 
 module.exports = {
-    rule_validation,
+    ruleValidation,
+    validateFlutterRule
 };
