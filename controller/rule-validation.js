@@ -21,17 +21,7 @@ const dataSchema = Joi.alternatives().try(
         position: Joi.string().required(),
         missions: Joi.alternatives().try(Joi.number(), Joi.object()).required()
     }),
-
-    Joi.array().items(
-        /*Joi.object({
-            name: Joi.string().required(),
-            crew: Joi.string().required(),
-            age: Joi.number().required(),
-            position: Joi.string().required(),
-            missions: Joi.alternatives().try(Joi.number(), Joi.object()).required()
-        })*/
-    ),
-
+    Joi.array().items(),
     Joi.string()
 ).required();
 
@@ -51,7 +41,7 @@ function validateFlutterRule(condition, conditionValue, fieldValue) {
 
     // setting up proper return message
     const checked = "Properly validated";
-    const notChecked = "The rule was not validated due to unknown condition"
+    const notChecked = "Unknown Condition"
 
     switch (condition) {
         case 'eq':
