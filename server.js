@@ -46,6 +46,8 @@ app.use(function(err, req, res, next) {
 // this is a central place for handling errors
 app.use(error);
 
-server.listen(PORT, () => {
+const testServer = server.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
 })
+
+module.exports = testServer; // this is allow implementation of writing test codes

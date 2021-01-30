@@ -5,10 +5,6 @@ describe('Validate Rule base On Condition', () => {
     let condition;
     let conditionValue;
 
-    beforeEach(() => {
-
-    });
-
     it('should return a verification object with valid property equal true and message equal Properly validated', () => {
         fieldValue = 45;
         condition = 'gte';
