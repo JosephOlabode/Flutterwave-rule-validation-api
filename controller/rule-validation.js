@@ -57,4 +57,44 @@ const rule_validation = Joi.object().keys({
 });
 
 
-module.exports = rule_validation;
+function validateFlutterRule(condition, condition_value, field_value) {
+    let verification = {
+        valid: false,
+        message: ''
+    }
+
+    // setting up proper return message
+    const checked = "Properly validated";
+    const notChecked = "The rule was not validated due to unknown condition"
+
+    switch (condition) {
+        case 'eq':
+            verification.valid = field_value === condition_value;
+            verification.message = checked;
+            break;
+        case 'neq':
+            verification.valid = field_value !== condition_value;
+            verification.message = checked;
+            break;
+        case 'gt':
+            verification.valid = field_value > condition_value;
+            verification.message = checked;
+            break;
+        case 'gte':
+            verification.valid = field_value >= condition_value;
+            verification.message = checked;
+            break;
+        case 'contains':
+            verification.valid = field_value % condition_value === 0;
+            verification.message = checked;
+            break;
+        default:
+            verification.message = notChecked;
+            break;
+    }
+    return verification;
+}
+
+module.exports = {
+    rule_validation,
+};

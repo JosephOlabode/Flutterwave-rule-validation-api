@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ruleValidation = require('../controller/rule-validation');
+const ruleValidationCheckup = require('../controller/rule-validation');
+const validateFlutterRule = require('../controller/validateFlutterRule');
 
 router.get('/', (req, res, next) => {
     return res.status(200).send({
@@ -11,7 +12,7 @@ router.get('/', (req, res, next) => {
             github: "@JosephOlabode",
             email: "josepholabode14@gmail.com",
             mobile: "08133394656",
-            twitter: "@amosb"
+            twitter: "@JosephOlabode14"
         }
     })
 });
@@ -19,12 +20,14 @@ router.get('/', (req, res, next) => {
 router.post('/validate-rule', async (req, res, next) => {
     const data = req.body;
     try {
-        const validatedData = await ruleValidation.validate(data);
+        const validatedData = await ruleValidationCheckup.validate(data);
 
         // checking if a validation error exist or not
         if(validatedData.error === null || validatedData.error === undefined) {
 
             const validData = validatedData.value;
+
+            const ruleValidationResult = validateFlutterRule()
 
             return res.status(200).send({
                 message: `field ${validData.rule.field} successfully validated.`,
