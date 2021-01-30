@@ -94,7 +94,7 @@ describe('rule validation routes', () => {
             })
         });
 
-        it('should return success with a message field 0 failed validation.', async () => {
+        it('should return error with a message field 0 failed validation.', async () => {
             const data = {
                 "rule": {
                     "field": "0",
@@ -116,6 +116,22 @@ describe('rule validation routes', () => {
                     condition_value: data.rule.condition_value
                 }
             })
+        });
+
+        it('should return error with a message field 5 is missing from data', async () => {
+            const data = {
+                "rule": {
+                    "field": "5",
+                    "condition": "contains",
+                    "condition_value": "rocinante"
+                },
+                "data": ["The Nauvoo", "The Razorback", "The Roci", "Tycho"]
+            }
+
+            const res = await request.post(`/validate-rule`).send(data);
+            expect(res.status).toBe(400);
+            expect(res.body.message).toBe(`field ${data.rule.field} is missing from data.`);
+            expect(res.body.data).toBe(null);
         });
     })
 })

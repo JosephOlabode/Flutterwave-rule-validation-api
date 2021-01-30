@@ -31,7 +31,7 @@ router.post('/validate-rule', async (req, res, next) => {
             const fieldIndex = parseInt(validatedData.rule.field);
             if(validatedData.data[fieldIndex] === undefined) {
                 return res.status(400).send({
-                    message: `field ${field} failed validation.`,
+                    message: `field ${field} is missing from data.`,
                     status: "error",
                     data: null
                 });
