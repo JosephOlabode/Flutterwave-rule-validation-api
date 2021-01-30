@@ -1,18 +1,4 @@
 const Joi = require('joi');
-/*{
-  "rule": {
-    "field": "missions",
-    "condition": "gte",
-    "condition_value": 30
-  },
-  "data": {
-    "name": "James Holden",
-    "crew": "Rocinante",
-    "age": 34,
-    "position": "Captain",
-    "missions": 45
-  }
-}*/
 
 // breaking down the input object into smaller chunks for
 // easy validation before combining them together as a whole

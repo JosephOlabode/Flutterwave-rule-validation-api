@@ -20,7 +20,7 @@ router.post('/validate-rule', async (req, res, next) => {
     const data = req.body;
     try {
         const validatedData = await ruleValidationController.ruleValidation.validateAsync(data);
-        let field = validatedData.rule.field;
+        const field = validatedData.rule.field;
         let fieldValue;
         const condition = validatedData.rule.condition;
         const conditionValue = validatedData.rule.condition_value;
@@ -36,9 +36,7 @@ router.post('/validate-rule', async (req, res, next) => {
                     data: null
                 });
             }
-            fieldValue = validatedData.data[fieldIndex];
-
-            console.log(fieldValue);
+            fieldValue = validatedData.data[fieldIndex]; // getting the field value from the array or string base on the index provided in the rule.field
         }
 
 
@@ -82,7 +80,7 @@ router.post('/validate-rule', async (req, res, next) => {
     } catch (err) {
         if(err.isJoi) {
             const error = err.details[0].message;
-            const errorMessage = error.replace(/[&\/\\#,+()$~%'":*?<>{}]/g, '');
+            const errorMessage = error.replace(/[&\/\\#,+()$~%'":*?<>{}]/g, ''); // this is remove any form of special character from the generated error message
             return res.status(400).send({
                 message:  errorMessage + '.',
                 status: "error",
