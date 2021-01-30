@@ -1,7 +1,7 @@
 {
   level: 'error',
-  message: 'result is not defined',
-  stack: 'ReferenceError: result is not defined\n' +
-    '    at /home/bowen/Desktop/Projects/Personal/rule-validation-api/routes/rule-validation.js:73:27\n' +
+  message: "Cannot read property 'rule' of undefined",
+  stack: "TypeError: Cannot read property 'rule' of undefined\n" +
+    '    at /home/bowen/Desktop/Projects/Personal/rule-validation-api/routes/rule-validation.js:27:37\n' +
     '    at processTicksAndRejections (internal/process/task_queues.js:97:5)'
 }

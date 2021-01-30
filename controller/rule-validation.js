@@ -33,7 +33,7 @@ const dataSchema = Joi.alternatives().try(
         crew: Joi.string().required(),
         age: Joi.number().required(),
         position: Joi.string().required(),
-        missions: Joi.number().required()
+        missions: Joi.alternatives().try(Joi.number(), Joi.object()).required()
     }),
 
     Joi.array().items(
@@ -42,7 +42,7 @@ const dataSchema = Joi.alternatives().try(
             crew: Joi.string().required(),
             age: Joi.number().required(),
             position: Joi.string().required(),
-            missions: Joi.number().required()
+            missions: Joi.alternatives().try(Joi.number(), Joi.object()).required()
         })
     ),
 
@@ -57,7 +57,7 @@ const ruleValidation = Joi.object().keys({
 });
 
 
-function validateFlutterRule(condition, condition_value, field_value) {
+function validateFlutterRule(condition, conditionValue, fieldValue) {
     let verification = {
         valid: false,
         message: ''
@@ -69,23 +69,23 @@ function validateFlutterRule(condition, condition_value, field_value) {
 
     switch (condition) {
         case 'eq':
-            verification.valid = field_value === condition_value;
+            verification.valid = fieldValue === conditionValue;
             verification.message = checked;
             break;
         case 'neq':
-            verification.valid = field_value !== condition_value;
+            verification.valid = fieldValue !== conditionValue;
             verification.message = checked;
             break;
         case 'gt':
-            verification.valid = field_value > condition_value;
+            verification.valid = fieldValue > conditionValue;
             verification.message = checked;
             break;
         case 'gte':
-            verification.valid = field_value >= condition_value;
+            verification.valid = fieldValue >= conditionValue;
             verification.message = checked;
             break;
         case 'contains':
-            verification.valid = field_value % condition_value === 0;
+            verification.valid = fieldValue % conditionValue === 0;
             verification.message = checked;
             break;
         default:
