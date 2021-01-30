@@ -1,7 +1,7 @@
 {
   level: 'error',
-  message: "Cannot read property 'rule' of undefined",
-  stack: "TypeError: Cannot read property 'rule' of undefined\n" +
-    '    at /home/bowen/Desktop/Projects/Personal/rule-validation-api/routes/rule-validation.js:27:37\n' +
+  message: 'Unexpected number',
+  stack: 'SyntaxError: Unexpected number\n' +
+    '    at /home/bowen/Desktop/Projects/Personal/rule-validation-api/routes/rule-validation.js:27:59\n' +
     '    at processTicksAndRejections (internal/process/task_queues.js:97:5)'
 }

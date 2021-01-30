@@ -20,11 +20,27 @@ router.post('/validate-rule', async (req, res, next) => {
     const data = req.body;
     try {
         const validatedData = await ruleValidationController.ruleValidation.validateAsync(data);
-
+        let field = validatedData.rule.field;
+        let fieldValue;
         const condition = validatedData.rule.condition;
         const conditionValue = validatedData.rule.condition_value;
-        const field = validatedData.rule.field;
-        const fieldValue = eval('validatedData.data'+ '.' + field); // using the eval function to enable passing of dynamic field variable name
+
+        if(isNaN(parseInt(validatedData.rule.field))){
+            fieldValue = eval('validatedData.data'+ '.' + field); // using the eval function to enable passing of dynamic field variable name
+        } else {
+            const fieldIndex = parseInt(validatedData.rule.field);
+            if(validatedData.data[fieldIndex] === undefined) {
+                return res.status(400).send({
+                    message: `field ${field} failed validation.`,
+                    status: "error",
+                    data: null
+                });
+            }
+            fieldValue = validatedData.data[fieldIndex];
+
+            console.log(fieldValue);
+        }
+
 
         const ruleValidationResult = ruleValidationController.validateFlutterRule(condition, conditionValue, fieldValue);
 

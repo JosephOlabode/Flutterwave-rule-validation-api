@@ -20,9 +20,9 @@ const Joi = require('joi');
 
 // validating the rule object
 const ruleSchema = Joi.object().keys({
-    field: Joi.alternatives().try(Joi.object().max(2), Joi.string()).required(),
+    field: Joi.alternatives().try(Joi.string()).required(),
     condition: Joi.string().valid('eq', 'neq', 'gt', 'gte', 'contains').required(),
-    condition_value: Joi.number().required()
+    condition_value: Joi.alternatives().try(Joi.number(), Joi.string()).required()
 }).required();
 
 
@@ -37,13 +37,13 @@ const dataSchema = Joi.alternatives().try(
     }),
 
     Joi.array().items(
-        Joi.object({
+        /*Joi.object({
             name: Joi.string().required(),
             crew: Joi.string().required(),
             age: Joi.number().required(),
             position: Joi.string().required(),
             missions: Joi.alternatives().try(Joi.number(), Joi.object()).required()
-        })
+        })*/
     ),
 
     Joi.string()
